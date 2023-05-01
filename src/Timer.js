@@ -1,25 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
+import useTimer from './hooks/useTimer';
 
 function Timer() {
-  const [isActive, setIsActive] = useState(false);
-  const [timer, setTimer] = useState(0);
-
-  useEffect(() => {
-    let interval;
-
-    if (isActive) {
-      interval = setInterval(() => {
-        setTimer(timerState => timerState + 1)
-      }, 1000
-    )}
-
-    return () => clearInterval(interval);
-  }, [isActive]);
+  const [isOn, stopwatch, setIsOn] = useTimer();
 
   return (
     <React.Fragment>
-      {isActive ? <h1>{timer}</h1> : <h1>Timer Stopped</h1>}
-      <button onClick={() => setIsActive(!isActive)}>Start/Stop</button>
+      {isOn ? <h1>{stopwatch}</h1> : <h1>Timer Stopped</h1>}
+      <button onClick={() => setIsOn(!isOn)}>Start/Stop</button>
     </React.Fragment>
   );
 }
